@@ -18,7 +18,7 @@ class Session {
       $user = $this->user->getUserById($_SESSION['user_id']);
       if ($user) {
         if ($user['role'] === 'company') {
-          // TODO: Get company data
+          $user = array_merge($user, $this->user->getCompanyData($user['id']));
         }
 
         return $user;

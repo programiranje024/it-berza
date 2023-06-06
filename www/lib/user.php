@@ -49,6 +49,30 @@ class User {
     return $this->getUserById($user_id);
   }
 
+  public function updateUser($user_id, $data) {
+    $stmt = $this->db->prepare("UPDATE users SET name = ?, phone = ?, bio = ? WHERE id = ?");
+
+    $stmt->execute([
+      $data['name'],
+      $data['phone'],
+      $data['bio'],
+      $user_id
+    ]);
+
+    if ($data['role'] === 'company') {
+      $stmt = $this->db->prepare("UPDATE company_data SET name = ?, website = ?, location = ? WHERE user_id = ?");
+
+      $stmt->execute([
+        $data['company_name'],
+        $data['company_website'],
+        $data['company_address'],
+        $user_id
+      ]);
+    }
+
+    return $this->getUserById($user_id);
+  }
+
   public function registerCompany($data) {
     $user = $this->registerUser($data);
 
@@ -62,6 +86,14 @@ class User {
     ]);
 
     return $user;
+  }
+
+  public function getCompanyData($user_id) {
+    $stmt = $this->db->prepare("SELECT name AS company_name, location AS company_address, website AS company_website, id AS company_data_id FROM company_data WHERE user_id = ?");
+
+    $stmt->execute([$user_id]);
+
+    return $stmt->fetch();
   }
 
   public function verifyUser($token) {
