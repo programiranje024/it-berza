@@ -2,3 +2,4 @@
 define('ROOT', dirname(__FILE__));
 
 require_once(ROOT . '/db.php');
+require_once(ROOT . '/mailer.php');
