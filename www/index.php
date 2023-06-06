@@ -1,1 +1,2 @@
-it berza
+<?php
+require_once('lib/lib.php');
