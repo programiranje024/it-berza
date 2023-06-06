@@ -17,6 +17,12 @@ if (Form::isSubmitted()) {
   }
 
   try {
+    if ($_POST['submit'] === 'Forgot password') {
+      $user = new User();
+      $user->forgotPassword($_POST['email']);
+      die('Email sent');
+    }
+
     $session->login($_POST['email'], $_POST['password']);
     die('Logged in');
   }
@@ -29,7 +35,8 @@ if (Form::isSubmitted()) {
 ?>
 <form action="/users/login.php" method="post">
   <input type="email" name="email" placeholder="Email" required>
-  <input type="password" name="password" placeholder="Password" required>
+  <input type="password" name="password" placeholder="Password">
 
   <input type="submit" name="submit" value="Login">
+  <input type="submit" name="submit" value="Forgot password">
 </form>

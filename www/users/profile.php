@@ -46,3 +46,4 @@ if (Form::isSubmitted()) {
 
   <input type="submit" name="submit" value="Update">
 </form>
+<a href="/users/change_password.php">Change password</a>
