@@ -53,6 +53,14 @@ CREATE TABLE IF NOT EXISTS messages (
   FOREIGN KEY (receiver_id) REFERENCES users(id)
 );
 
+CREATE TABLE IF NOT EXISTS verification_tokens (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  user_id INT NOT NULL,
+  token TEXT NOT NULL,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
 INSERT INTO categories (name) VALUES
   ("Web Development"),
   ("Mobile Development"),

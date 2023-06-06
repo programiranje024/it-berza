@@ -2,9 +2,11 @@
 
 class User {
   protected $db = null;
+  protected $mailer = null;
 
   public function __construct() {
     $this->db = (new Db())->getInstance();
+    $this->mailer = new Mailer();
   }
 
   public function getUserByEmail($email) {
@@ -40,6 +42,9 @@ class User {
     ]);
 
     $user_id = $this->db->lastInsertId();
+    $token = $this->getVerificationToken($user_id);
+
+    $this->mailer->send($data['email'], 'Verify your email', 'You have successfully registered. Please verify your email by clicking <a href="http://localhost/users/verify.php?token=' . $token['token'] . '">here</a>');
 
     return $this->getUserById($user_id);
   }
@@ -57,5 +62,44 @@ class User {
     ]);
 
     return $user;
+  }
+
+  public function verifyUser($token) {
+    $stmt = $this->db->prepare("SELECT * FROM verification_tokens WHERE token = ?");
+
+    $stmt->execute([$token]);
+
+    if ($stmt->rowCount() > 0) {
+      $token = $stmt->fetch();
+
+      $stmt = $this->db->prepare("UPDATE users SET verified = 1 WHERE id = ?");
+
+      $stmt->execute([$token['user_id']]);
+
+      $stmt = $this->db->prepare("DELETE FROM verification_tokens WHERE id = ?");
+
+      $stmt->execute([$token['id']]);
+
+      return true;
+    }
+
+    return false;
+  }
+
+  private function getVerificationToken($user_id) {
+    $stmt = $this->db->prepare("SELECT * FROM verification_tokens WHERE user_id = ?");
+
+    $stmt->execute([$user_id]);
+
+    if ($stmt->rowCount() > 0) {
+      return $stmt->fetch();
+    }
+
+    $stmt = $this->db->prepare("INSERT INTO verification_tokens (user_id, token) VALUES (?, ?)");
+
+    $token = bin2hex(random_bytes(32));
+    $stmt->execute([$user_id, $token]);
+
+    return $this->getVerificationToken($user_id);
   }
 }

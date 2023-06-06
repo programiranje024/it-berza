@@ -1,5 +1,11 @@
 <?php
 require_once('../lib/lib.php');
+$session = new Session();
+
+if ($session->isLoggedIn()) {
+  // TODO: Show error or redirect
+  die('You are already logged in');
+}
 
 if (Form::isSubmitted()) {
   // Check if we have everything we need
