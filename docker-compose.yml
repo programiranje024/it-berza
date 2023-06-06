@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  mysql:
+    image: mariadb:10.11-jammy
+    container_name: 'it_berza_db'
+    environment:
+      MARIADB_RANDOM_ROOT_PASSWORD: yes
+      MARIADB_DATABASE: itberza
+      MARIADB_USER: itberza
+      MARIADB_PASSWORD: itberza
+    ports:
+      - 3306:3306
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d
+  web:
+    image: webdevops/php-apache-dev:8.0
+    container_name: 'it_berza_www'
+    environment:
+      - POSTFIX_RELAYHOST=[mailhog]:1025
+    ports:
+      - 80:80
+    volumes:
+      - ./www:/app
+      - ./www/uploads:/app/uploads
+  mailhog:
+    image: mailhog/mailhog
+    container_name: 'it_berza_mail'
+    ports:
+      - 8025:8025
