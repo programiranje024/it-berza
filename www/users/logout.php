@@ -7,7 +7,10 @@ if (!$session->isLoggedIn()) {
 }
 
 $session->logout();
-echo ('Logged out');
 
 include_once('../partials/header.php');
+?>
+<h2>You are logged out</h2>
+<?php
 include_once('../partials/footer.php');
+?>

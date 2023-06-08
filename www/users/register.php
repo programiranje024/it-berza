@@ -35,17 +35,17 @@ if (Form::isSubmitted()) {
     else {
       $user->registerUser($_POST);
     }
-    echo ('User registered');
+    echo ('User registered! Please check your email to activate your account');
   }
   catch (Exception $e) {
-    var_dump($e->getMessage());
     echo ('Something went wrong');
   }
 }
 
 include_once('../partials/header.php');
 ?>
-
+<a class="back" href="/index.php">Back</a>
+<h2>Register</h2>
 <form action="/users/register.php" method="post">
   <input type="text" name="name" placeholder="Name" required>
   <input type="tel" name="phone" placeholder="Phone" required>
@@ -68,6 +68,7 @@ include_once('../partials/header.php');
   <input type="submit" name="submit" value="Register">
 </form>
 <script src="/js/register.js"></script>
+<link rel="stylesheet" href="/css/form.css">
 <?php
 include_once('../partials/footer.php');
 ?>

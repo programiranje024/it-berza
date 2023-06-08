@@ -35,7 +35,10 @@ if (!$user) {
   echo ('User could not be unbanned');
 }
 
-echo ('User has been unbanned');
-
 include_once('../../partials/header.php');
+?>
+<a class="back" href="/admin/index.php">Back</a>
+<h2>User has been unbanned</h2>
+<?php
 include_once('../../partials/footer.php');
+?>

@@ -18,25 +18,26 @@ if (!$job) {
 
 include_once('partials/header.php');
 ?>
+<a class="back" href="/index.php">Back</a>
 <h2><?php echo $job['title']; ?></h2>
 <p><?php echo $job['description']; ?></p>
 <p><?php echo $job['category']['name']; ?></p>
 <p><?php echo $job['company']['company_name']; ?></p>
 
 <?php if ($session->isRole('admin')) { ?>
-<a href="/admin/job/delete.php?id=<?php echo $job['id']; ?>">Delete</a>
+<a class="delete" href="/admin/job/delete.php?id=<?php echo $job['id']; ?>">Delete</a>
 <?php } ?>
 
 <?php if ($session->isRole('company') && $job['company_id'] == $session->getCurrentUser()['id']) { ?>
-<a href="/company/job/edit.php?id=<?php echo $job['id']; ?>">Edit</a>
-<a href="/company/job/delete.php?id=<?php echo $job['id']; ?>">Delete</a>
+<a class="edit" href="/company/job/edit.php?id=<?php echo $job['id']; ?>">Edit</a>
+<a class="delete" href="/company/job/delete.php?id=<?php echo $job['id']; ?>">Delete</a>
 <?php } ?>
 
 <?php if ($session->isRole('user')) { ?>
-<a href="/users/message.php?id=<?php echo $job['company_id']; ?>">Apply</a>
+<a class="apply" href="/users/message.php?id=<?php echo $job['company_id']; ?>">Apply</a>
 <?php } ?>
 
 <?php if (!$session->isLoggedIn()) { ?>
-<a href="/users/login.php">Login to apply</a>
+<a class="apply" href="/users/login.php">Login to apply</a>
 <?php } ?>
 <?php include_once('partials/footer.php'); ?>

@@ -5,7 +5,6 @@ $session = new Session();
 $user = new User();
 
 if ($session->isLoggedIn()) {
-  // TODO: Show error or redirect
   die('You are already logged in');
 }
 

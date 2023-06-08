@@ -19,8 +19,8 @@ if (!empty($company_id)) {
 
 include_once('partials/header.php');
 ?>
-
-<form action="/index.php" method="get">
+<h2>IT Berza</h2>
+<form action="/index.php" method="get" id="search">
   <select name="company_id">
     <option value="">All companies</option>
     <?php foreach ($companies as $company) { ?>
@@ -42,9 +42,9 @@ include_once('partials/header.php');
   <input type="submit" name='submit' value="Search" />
 </form>
 
-<div>
+<div id="ads">
   <?php foreach ($ads as $ad) { ?>
-  <div>
+  <div class="ad">
     <h2><?php echo $ad['title']; ?></h2>
     <p><?php echo $ad['description']; ?></p>
     <p><?php echo $ad['company']['company_name']; ?></p>
@@ -53,5 +53,6 @@ include_once('partials/header.php');
   </div>
   <?php } ?>
 </div>
-
+<link rel="stylesheet" href="/css/form.css" />
+<link rel="stylesheet" href="/css/search.css" />
 <?php include_once('partials/footer.php'); ?>

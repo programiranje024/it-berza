@@ -30,12 +30,15 @@ if (!$job['company_id'] == $company['id']) {
 
 try {
   $jobs->deleteJob($job_id);
-  echo ('Job deleted successfully.');
 }
 catch (PDOException $e) {
   echo ('Error while deleting the job.');
 }
 
 include_once('../../partials/header.php');
+?>
+<h2>Ad deleted successfully</h2>
+<a class="back" href="/company/index.php">Back</a>
+<?php
 include_once('../../partials/footer.php');
 ?>

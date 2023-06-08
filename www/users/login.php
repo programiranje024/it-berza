@@ -22,7 +22,7 @@ if (Form::isSubmitted()) {
     }
 
     $session->login($_POST['email'], $_POST['password']);
-    echo ('Logged in');
+    header('Location: /users/profile.php');
   }
   catch (Exception $e) {
     echo ('Something went wrong');
@@ -31,6 +31,8 @@ if (Form::isSubmitted()) {
 
 include_once('../partials/header.php');
 ?>
+<a class="back" href="/index.php">Back</a>
+<h2>Login</h2>
 <form action="/users/login.php" method="post">
   <input type="email" name="email" placeholder="Email" required>
   <input type="password" name="password" placeholder="Password">
@@ -38,6 +40,7 @@ include_once('../partials/header.php');
   <input type="submit" name="submit" value="Login">
   <input type="submit" name="submit" value="Forgot password">
 </form>
+<link rel="stylesheet" href="/css/form.css">
 <?php
 include_once('../partials/footer.php');
 ?>

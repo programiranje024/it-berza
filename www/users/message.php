@@ -26,7 +26,7 @@ $messages = empty($receiver_id) ? [] : $message->getConversation($current_user['
 
 include_once('../partials/header.php');
 ?>
-
+<a class="back" href="/users/profile.php">Back</a>
 <h2>Messages <?php if ($receiver) {
   echo 'with ' . ($is_company ? $receiver['company']['company_name'] : $receiver['name']);
 } ?></h2>
@@ -70,7 +70,9 @@ include_once('../partials/header.php');
 </div>
 <?php } ?>
 </div>
+<script src="/js/messages.js"></script>
 <link rel="stylesheet" href="/css/messages.css" />
+<link rel="stylesheet" href="/css/form.css" />
 <?php
 include_once('../partials/footer.php');
 ?>

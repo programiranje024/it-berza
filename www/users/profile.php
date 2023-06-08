@@ -33,6 +33,7 @@ if (Form::isSubmitted()) {
 
 include_once('../partials/header.php');
 ?>
+<h2>Hey there, <?php echo $user['name']; ?></h2>
 <form action="/users/profile.php" method="post">
   <input type="text" name="name" placeholder="Name" value="<?php echo $user['name']; ?>" required>
   <input type="tel" name="phone" placeholder="Phone" value="<?php echo $user['phone']; ?>" required>
@@ -48,7 +49,8 @@ include_once('../partials/header.php');
 
   <input type="submit" name="submit" value="Update">
 </form>
-<a href="/users/change_password.php">Change password</a>
+<a class="edit" href="/users/change_password.php">Change password</a>
+<link rel="stylesheet" href="/css/form.css">
 <?php
 include_once('../partials/footer.php');
 ?>

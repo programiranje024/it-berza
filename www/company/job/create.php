@@ -33,6 +33,8 @@ if (Form::isSubmitted()) {
 
 include_once('../../partials/header.php');
 ?>
+<a class="back" href="/company/index.php">Back</a>
+<h2>Create job ad</h2>
 <form action="/company/job/create.php" method="post">
   <input type="text" name="title" placeholder="Title" />
   <textarea name="description" placeholder="Description"></textarea>
@@ -44,6 +46,7 @@ include_once('../../partials/header.php');
 
   <input type="submit" name='submit' value="Post job ad" />
 </form>
+<link rel="stylesheet" href="/css/form.css">
 <?php
 include_once('../../partials/footer.php');
 ?>

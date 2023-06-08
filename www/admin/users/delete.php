@@ -20,10 +20,14 @@ if ($user_id === $session->getCurrentUser()['id']) {
 
 try {
   $user->deleteUser($user_id);
-  echo ('User has been deleted');
 } catch (Exception $e) {
   echo ('User could not be deleted');
 }
 
 include_once('../../partials/header.php');
+?>
+<a class="back" href="/admin/index.php">Back</a>
+<h2>User has been deleted</h2>
+<?php
 include_once('../../partials/footer.php');
+?>

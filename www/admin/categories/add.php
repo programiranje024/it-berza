@@ -26,10 +26,13 @@ if (Form::isSubmitted()) {
 
 include_once('../../partials/header.php');
 ?>
+<a class="back" href="/admin/index.php">Back</a>
+<h2>Add Category</h2>
 <form action="/admin/categories/add.php" method="post">
   <input type="text" name="name" placeholder="Name">
   <input type="submit" name="submit" value="Add">
 </form>
+<link rel="stylesheet" href="/css/form.css">
 <?php
 include_once('../../partials/footer.php');
 ?>

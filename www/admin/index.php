@@ -56,7 +56,7 @@ include_once('../partials/header.php');
       <td><?php echo $user['role']; ?></td>
       <td><?php echo $user['status']; ?></td>
       <td>
-        <a href="/admin/users/delete.php?id=<?php echo $user['id']; ?>">Delete</a>
+        <a class='delete' href="/admin/users/delete.php?id=<?php echo $user['id']; ?>">Delete</a>
         <?php if ($user['status'] === 'Unverified') { ?>
           <a href="/admin/users/verify.php?id=<?php echo $user['id']; ?>">Verify</a>
         <?php } ?>
@@ -87,14 +87,15 @@ include_once('../partials/header.php');
     <tr>
       <td><?php echo $category['name']; ?></td>
       <td>
-        <a href="/admin/categories/delete.php?id=<?php echo $category['id']; ?>">Delete</a>
+        <a class='delete' href="/admin/categories/delete.php?id=<?php echo $category['id']; ?>">Delete</a>
       </td>
     </tr>
   <?php
     }
 ?>
 </table>
-<a href="/admin/categories/add.php">Create Category</a>
+<a class='add' href="/admin/categories/add.php">Create Category</a>
+<link rel="stylesheet" href="/css/admin.css">
 <?php
 include_once('../partials/footer.php');
 ?>

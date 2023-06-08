@@ -38,14 +38,15 @@ include_once('../partials/header.php');
       <td><?php echo $ad['category']; ?></td>
       <td>
         <a href="/company/job/edit.php?id=<?php echo $ad['id']; ?>">Edit</a>
-        <a href="/company/job/delete.php?id=<?php echo $ad['id']; ?>">Delete</a>
+        <a class="delete" href="/company/job/delete.php?id=<?php echo $ad['id']; ?>">Delete</a>
       </td>
     </tr>
     <?php } ?>
   </tbody>
 </table>
 
-<a href="/company/job/create.php">Create new ad</a>
+<a class="add" href="/company/job/create.php">Create new ad</a>
+<link rel="stylesheet" href="/css/admin.css" />
 <?php
 include_once('../partials/footer.php');
 ?>

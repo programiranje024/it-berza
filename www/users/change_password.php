@@ -27,12 +27,15 @@ if (Form::isSubmitted()) {
 
 include_once('../partials/header.php');
 ?>
+<a class="back" href="/users/profile.php">Back</a>
+<h2>Change password</h2>
 <form action="/users/change_password.php" method="post">
   <input type="password" name="old_password" placeholder="Old password" required>
   <input type="password" name="password" placeholder="New password" required>
 
   <input type="submit" name="submit" value="Change password">
 </form>
+<link rel="stylesheet" href="/css/form.css">
 <?php
 include_once('../partials/footer.php');
 ?>

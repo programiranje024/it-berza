@@ -8,7 +8,6 @@
   padding: 20px;
 
   background-color: #0c0c0c;
-  margin-bottom: 20px;
 }
 
 #main-nav ul a {
@@ -16,6 +15,72 @@
   color: #fff;
 }
 
+#main-nav ul a:hover {
+  text-decoration: underline;
+}
+
 body > div {
   padding: 30px;
+}
+
+a.back::before {
+  content: "⬅️";
+  margin-right: 10px;
+}
+
+a.back {
+  text-decoration: none;
+  margin-bottom: 20px;
+  border: 1px solid #0c0c0c;
+  background-color: mediumaquamarine;
+  color: black;
+}
+
+body {
+  font-size: 1.2em;
+  text-align: center;
+  color: black;
+}
+
+body > nav {
+  font-size: 1em;
+}
+
+body > div {
+  background-color: #fff;
+  text-align: start;
+  font-size: 1em;
+  margin-bottom: 20px;
+}
+
+a.delete {
+  background-color: red;
+  color: white;
+  text-decoration: none;
+  padding: 5px;
+  border: 1px solid red;
+}
+
+a.delete:hover {
+  background-color: maroon;
+}
+
+a.edit {
+  background-color: #0c0c0c;
+  color: white;
+  text-decoration: none;
+  padding: 5px;
+  border: 1px solid #0c0c0c;
+}
+
+a.edit:hover {
+  background-color: gray;
+}
+
+a.apply {
+  background-color: blueviolet;
+  color: white;
+  text-decoration: none;
+  padding: 5px;
+  border: 1px solid blueviolet;
 }
