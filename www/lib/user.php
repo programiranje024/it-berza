@@ -22,7 +22,13 @@ class User {
 
     $stmt->execute([$id]);
 
-    return $stmt->fetch();
+    $user = $stmt->fetch();
+
+    if ($user['role'] == 'company') {
+      $user['company'] = $this->getCompanyData($user['id']);
+    }
+
+    return $user;
   }
 
   public function registerUser($data) {
@@ -182,7 +188,7 @@ class User {
 
     foreach ($users as $key => $user) {
       if ($user['role'] === 'company') {
-        $users[$key]['company_data'] = $this->getCompanyData($user['id']);
+        $users[$key]['company'] = $this->getCompanyData($user['id']);
       }
     }
 
