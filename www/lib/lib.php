@@ -6,3 +6,4 @@ require_once(ROOT . '/mailer.php');
 require_once(ROOT . '/form.php');
 require_once(ROOT . '/user.php');
 require_once(ROOT . '/session.php');
+require_once(ROOT . '/admin.php');

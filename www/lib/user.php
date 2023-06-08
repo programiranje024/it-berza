@@ -109,6 +109,25 @@ class User {
     return $this->getUserById($user_id);
   }
 
+  public function deleteUser($user_id) {
+    $user = $this->getUserById($user_id);
+
+    if (!$user) {
+      throw new Exception("User with this id does not exist");
+    }
+
+    if ($user['role'] === 'company') {
+      $stmt = $this->db->prepare("DELETE FROM company_data WHERE user_id = ?");
+      $stmt->execute([$user_id]);
+    }
+
+    $stmt = $this->db->prepare("DELETE FROM verification_tokens WHERE user_id = ?");
+    $stmt->execute([$user_id]);
+
+    $stmt = $this->db->prepare("DELETE FROM users WHERE id = ?");
+    $stmt->execute([$user_id]);
+  }
+
   public function registerCompany($data) {
     $user = $this->registerUser($data);
 
@@ -152,6 +171,22 @@ class User {
     }
 
     return false;
+  }
+
+  public function getAllUsers() {
+    $stmt = $this->db->prepare("SELECT * FROM users");
+
+    $stmt->execute();
+
+    $users = $stmt->fetchAll();
+
+    foreach ($users as $key => $user) {
+      if ($user['role'] === 'company') {
+        $users[$key]['company_data'] = $this->getCompanyData($user['id']);
+      }
+    }
+
+    return $users;
   }
 
   private function getVerificationToken($user_id) {
