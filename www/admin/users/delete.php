@@ -11,16 +11,19 @@ $user = new User();
 $user_id = $_GET['id'] ?? null;
 
 if (!$user_id) {
-  die('User id is required');
+  echo ('User id is required');
 }
 
 if ($user_id === $session->getCurrentUser()['id']) {
-  die('You cannot delete yourself');
+  echo ('You cannot delete yourself');
 }
 
 try {
   $user->deleteUser($user_id);
-  die('User has been deleted');
+  echo ('User has been deleted');
 } catch (Exception $e) {
-  die('User could not be deleted');
+  echo ('User could not be deleted');
 }
+
+include_once('../../partials/header.php');
+include_once('../../partials/footer.php');

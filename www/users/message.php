@@ -9,7 +9,7 @@ $current_user = $session->getCurrentUser();
 
 if (Form::isSubmitted()) {
   if (!Form::isAllSet(['receiver_id', 'message'])) {
-    die('Invalid request');
+    echo ('Invalid request');
   }
 
   $receiver_id = $_POST['receiver_id'];
@@ -23,6 +23,8 @@ $receiver_id = $_GET['id'] ?? null;
 $receiver = empty($receiver_id) ? null : $user->getUserById($receiver_id);
 $is_company = !is_null($receiver) && isset($receiver['company']['company_name']);
 $messages = empty($receiver_id) ? [] : $message->getConversation($current_user['id'], $_GET['id']);
+
+include_once('../partials/header.php');
 ?>
 
 <h2>Messages <?php if ($receiver) {
@@ -58,3 +60,6 @@ $messages = empty($receiver_id) ? [] : $message->getConversation($current_user['
 </div>
 <?php } ?>
 </div>
+<?php
+include_once('../partials/footer.php');
+?>

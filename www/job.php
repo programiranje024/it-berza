@@ -7,14 +7,16 @@ $jobs = new Jobs();
 $job_id = $_GET['id'] ?? null;
 
 if (!$job_id) {
-  die('Please provide a job id.');
+  echo ('Please provide a job id.');
 }
 
 $job = $jobs->getJob($_GET['id']);
 
 if (!$job) {
-  die('Job not found.');
+  echo ('Job not found.');
 }
+
+include_once('partials/header.php');
 ?>
 <h2><?php echo $job['title']; ?></h2>
 <p><?php echo $job['description']; ?></p>
@@ -37,3 +39,4 @@ if (!$job) {
 <?php if (!$session->isLoggedIn()) { ?>
 <a href="/users/login.php">Login to apply</a>
 <?php } ?>
+<?php include_once('partials/footer.php'); ?>

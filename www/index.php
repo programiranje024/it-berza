@@ -16,6 +16,8 @@ $ads = empty($category_id) ? $jobs->getAllJobs() : $jobs->getJobsByCategory($cat
 if (!empty($company_id)) {
   $ads = array_merge($ads, $jobs->getJobsByCompany($company_id));
 }
+
+include_once('partials/header.php');
 ?>
 
 <form action="/index.php" method="get">
@@ -51,3 +53,5 @@ if (!empty($company_id)) {
   </div>
   <?php } ?>
 </div>
+
+<?php include_once('partials/footer.php'); ?>

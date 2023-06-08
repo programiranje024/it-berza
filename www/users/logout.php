@@ -3,8 +3,11 @@ require_once('../lib/lib.php');
 $session = new Session();
 
 if (!$session->isLoggedIn()) {
-  die('You are not logged in');
+  echo ('You are not logged in');
 }
 
 $session->logout();
-die('Logged out');
+echo ('Logged out');
+
+include_once('../partials/header.php');
+include_once('../partials/footer.php');

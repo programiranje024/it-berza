@@ -15,16 +15,21 @@ if (Form::isSubmitted()) {
 
     try {
       $category->createCategory($name);
-      die('Category has been added');
+      echo ('Category has been added');
     } catch (Exception $e) {
-      die('Category could not be added');
+      echo ('Category could not be added');
     }
   } else {
-    die('All fields are required');
+    echo ('All fields are required');
   }
 }
+
+include_once('../../partials/header.php');
 ?>
 <form action="/admin/categories/add.php" method="post">
   <input type="text" name="name" placeholder="Name">
   <input type="submit" name="submit" value="Add">
 </form>
+<?php
+include_once('../../partials/footer.php');
+?>

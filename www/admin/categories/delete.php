@@ -11,12 +11,15 @@ $category = new Category();
 $category_id = $_GET['id'] ?? null;
 
 if (!$category_id) {
-  die('Category id is required');
+  echo ('Category id is required');
 }
 
 try {
   $category->deleteCategory($category_id);
-  die('Category has been deleted');
+  echo ('Category has been deleted');
 } catch (Exception $e) {
-  die('Category could not be deleted');
+  echo ('Category could not be deleted');
 }
+
+include_once('../../partials/header.php');
+include_once('../../partials/footer.php');

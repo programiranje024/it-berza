@@ -6,24 +6,26 @@ $user = new User();
 $current_user = $session->getCurrentUser();
 
 if (!$session->isLoggedIn()) {
-  die('You are not logged in');
+  echo ('You are not logged in');
 }
 
 if (Form::isSubmitted()) {
   $fields_to_check = ['old_password', 'password'];
   if (!Form::isAllSet($fields_to_check)) {
-    die('Not all fields are set');
+    echo ('Not all fields are set');
   }
 
   try { 
     $user->changePassword($current_user['id'], $_POST['old_password'], $_POST['password']);
-    die('Password changed');
+    echo ('Password changed');
   }
   catch (Exception $e) {
     var_dump($e->getMessage());
-    die('Something went wrong');
+    echo ('Something went wrong');
   }
 }
+
+include_once('../partials/header.php');
 ?>
 <form action="/users/change_password.php" method="post">
   <input type="password" name="old_password" placeholder="Old password" required>
@@ -31,3 +33,6 @@ if (Form::isSubmitted()) {
 
   <input type="submit" name="submit" value="Change password">
 </form>
+<?php
+include_once('../partials/footer.php');
+?>

@@ -16,6 +16,8 @@ $ads = array_map(function($ad) use ($category) {
   $ad['category'] = $category->getCategoryById($ad['category_id'])['name'];
   return $ad;
 }, $ads);
+
+include_once('../partials/header.php');
 ?>
 
 <h2>Your Ads</h2>
@@ -44,3 +46,6 @@ $ads = array_map(function($ad) use ($category) {
 </table>
 
 <a href="/company/job/create.php">Create new ad</a>
+<?php
+include_once('../partials/footer.php');
+?>

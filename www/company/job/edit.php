@@ -4,7 +4,7 @@ require_once('../../lib/lib.php');
 $session = new Session();
 
 if (!$session->isRole('company')) {
-  die('You are not allowed to access this page.');
+  die('You are not authorized to access this page.');
 }
 
 $job_id = $_GET['id'] ?? null;
@@ -15,22 +15,22 @@ $category = new Category();
 $categories = $category->getAllCategories();
 
 if (!$job_id) {
-  die('Please provide a job id.');
+  echo ('Please provide a job id.');
 }
 
 $job = $jobs->getJob($_GET['id']);
 
 if (!$job) {
-  die('Job not found.');
+  echo ('Job not found.');
 }
 
 if (!$job['company_id'] == $company['id']) {
-  die('You are not allowed to edit this job.');
+  echo ('You are not allowed to edit this job.');
 }
 
 if (Form::isSubmitted()) {
   if (!Form::isAllSet(['title', 'description', 'category_id'])) {
-    die('Please fill in all the fields.');
+    echo ('Please fill in all the fields.');
   }
 
   try {
@@ -40,12 +40,14 @@ if (Form::isSubmitted()) {
         'description' => $_POST['description']
     ], $company['id'], $_POST['category_id']);
 
-    die('Ad updated successfully.');
+    echo ('Ad updated successfully.');
   }
   catch (PDOException $e) {
-    die('Error while updating the ad.');
+    echo ('Error while updating the ad.');
   }
 }
+
+include_once('../../partials/header.php');
 ?>
 <form action="/company/job/edit.php?id=<?php echo $job_id; ?>" method="post">
   <input type="text" name="title" placeholder="Title" value="<?php echo $job['title']; ?>" />
@@ -62,3 +64,6 @@ if (Form::isSubmitted()) {
 
   <input type="submit" name='submit' value="Update job ad" />
 </form>
+<?php
+include_once('../../partials/footer.php');
+?>

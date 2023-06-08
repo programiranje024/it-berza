@@ -30,6 +30,8 @@ $users = array_filter($users, function($user) use ($session) {
   
   return $user['id'] !== $current_user['id'];
 });
+
+include_once('../partials/header.php');
 ?>
 
 <h2>Manage Users:</h2>
@@ -93,3 +95,6 @@ $users = array_filter($users, function($user) use ($session) {
 ?>
 </table>
 <a href="/admin/categories/add.php">Create Category</a>
+<?php
+include_once('../partials/footer.php');
+?>

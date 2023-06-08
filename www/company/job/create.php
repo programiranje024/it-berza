@@ -4,7 +4,7 @@ require_once('../../lib/lib.php');
 $session = new Session();
 
 if (!$session->isRole('company')) {
-  die('You are not allowed to access this page.');
+  die('You are not authorized to access this page.');
 }
 
 $company = $session->getCurrentUser();
@@ -15,7 +15,7 @@ $categories = $category->getAllCategories();
 
 if (Form::isSubmitted()) {
   if (!Form::isAllSet(['title', 'description', 'category_id'])) {
-    die('Please fill in all the fields.');
+    echo ('Please fill in all the fields.');
   }
 
   try {
@@ -24,12 +24,14 @@ if (Form::isSubmitted()) {
       'description' => $_POST['description']
     ], $company['id'], $_POST['category_id']);
 
-    die('Ad created successfully.');
+    echo ('Ad created successfully.');
   }
   catch (PDOException $e) {
-    die('Error while creating the ad.');
+    echo ('Error while creating the ad.');
   }
 }
+
+include_once('../../partials/header.php');
 ?>
 <form action="/company/job/create.php" method="post">
   <input type="text" name="title" placeholder="Title" />
@@ -42,3 +44,6 @@ if (Form::isSubmitted()) {
 
   <input type="submit" name='submit' value="Post job ad" />
 </form>
+<?php
+include_once('../../partials/footer.php');
+?>
