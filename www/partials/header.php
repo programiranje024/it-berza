@@ -7,9 +7,17 @@ $session = new Session();
 <head>
     <meta charset="UTF-8">
     <title>IT Berza</title>
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+    </style>
+    <link rel="stylesheet" href="/css/header.css">
 </head>
 <body>
-<nav>
+<nav id="main-nav">
   <ul>
     <li><a href="/index.php">Home</a></li>
     <?php if ($session->isRole('admin')) { ?>
@@ -28,4 +36,4 @@ $session = new Session();
     <?php } ?>
   </ul>
 </nav>
-
+<div>

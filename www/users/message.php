@@ -30,12 +30,12 @@ include_once('../partials/header.php');
 <h2>Messages <?php if ($receiver) {
   echo 'with ' . ($is_company ? $receiver['company']['company_name'] : $receiver['name']);
 } ?></h2>
-<nav>
+<nav id="receivers">
   <ul>
     <?php foreach ($receivers as $receiver) { ?>
     <li>
       <a href="/users/message.php?id=<?php echo $receiver['id']; ?>">
-        <?php echo $receiver['name'] . ($is_company ? ' (' . $receiver['company']['company_name'] . ')' : ''); ?>
+        <?php echo $receiver['name'] . (isset($receiver['company']) ? ' (' . $receiver['company']['company_name'] . ')' : ''); ?>
       </a>
     </li>
     <?php } ?>
@@ -45,9 +45,19 @@ include_once('../partials/header.php');
 <?php if ($receiver_id) {?>
 <div>
   <?php foreach ($messages as $message) { ?>
-  <div>
+  <div class="message <?php echo $message['sender_id'] === $current_user['id'] ? 'sent' : 'received'; ?>">
     <p><?php echo $message['message']; ?></p>
-    <p><?php echo $message['created_at']; ?></p>
+    <p>
+      <?php 
+        if ($message['sender_id'] === $current_user['id']) {
+          echo 'You';
+        } else {
+          echo $receiver['name'];
+        }
+        echo " at ";
+        echo $message['created_at']; 
+      ?>
+    </p>
   </div>
   <?php } ?>
 </div>
@@ -60,6 +70,7 @@ include_once('../partials/header.php');
 </div>
 <?php } ?>
 </div>
+<link rel="stylesheet" href="/css/messages.css" />
 <?php
 include_once('../partials/footer.php');
 ?>
