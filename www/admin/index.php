@@ -3,11 +3,13 @@ require_once('../lib/lib.php');
 
 $session = new Session();
 $user = new User();
+$category = new Category();
 
 if (!$session->isRole('admin')) {
   die('You are not authorized to access this page.');
 }
 
+$categories = $category->getAllCategories();
 $users = $user->getAllUsers();
 
 $users = array_map(function($user) {
@@ -69,3 +71,25 @@ $users = array_filter($users, function($user) use ($session) {
   ?>
 </table>
 
+<h2>Manage Categories:</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <?php
+    foreach ($categories as $category) {
+  ?>
+    <tr>
+      <td><?php echo $category['name']; ?></td>
+      <td>
+        <a href="/admin/categories/delete.php?id=<?php echo $category['id']; ?>">Delete</a>
+      </td>
+    </tr>
+  <?php
+    }
+?>
+</table>
+<a href="/admin/categories/add.php">Create Category</a>
