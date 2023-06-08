@@ -31,7 +31,7 @@ if (!$job) {
 <?php } ?>
 
 <?php if ($session->isRole('user')) { ?>
-<a href="/user/message.php?id=<?php echo $job['company_id']; ?>">Apply</a>
+<a href="/users/message.php?id=<?php echo $job['company_id']; ?>">Apply</a>
 <?php } ?>
 
 <?php if (!$session->isLoggedIn()) { ?>
