@@ -70,7 +70,6 @@ include_once('../partials/header.php');
 </div>
 <?php } ?>
 </div>
-<script src="/js/messages.js"></script>
 <link rel="stylesheet" href="/css/messages.css" />
 <link rel="stylesheet" href="/css/form.css" />
 <?php
