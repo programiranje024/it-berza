@@ -31,8 +31,8 @@ include_once('partials/header.php');
   </select>
 
   <select name="category_id">
-    <?php foreach ($categories as $category) { ?>
     <option value="">All categories</option>
+    <?php foreach ($categories as $category) { ?>
     <option value="<?php echo $category['id']; ?>"
       <?php if ($category_id == $category['id']) { echo 'selected'; } ?>
     ><?php echo $category['name']; ?></option>
