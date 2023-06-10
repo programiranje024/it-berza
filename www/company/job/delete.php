@@ -2,8 +2,9 @@
 require_once('../../lib/lib.php');
 
 $session = new Session();
+$can_access = $session->isRole('admin') || $session->isRole('company');
 
-if (!$session->isRole('company')) {
+if (!$can_access) {
   die('You are not authorized to access this page.');
 }
 
@@ -24,7 +25,9 @@ if (!$job) {
   die('Job not found.');
 }
 
-if (!$job['company_id'] == $company['id']) {
+$can_delete = $session->isRole('admin') || ($session->isRole('company') && $job['company_id'] == $company['id']);
+
+if (!$can_delete) {
   die('You are not allowed to delete this job.');
 }
 
@@ -35,10 +38,12 @@ catch (PDOException $e) {
   echo ('Error while deleting the job.');
 }
 
+$back_url = $session->isRole('admin') ? '/admin/index.php' : '/company/index.php';
+
 include_once('../../partials/header.php');
 ?>
 <h2>Ad deleted successfully</h2>
-<a class="back" href="/company/index.php">Back</a>
+<a class="back" href="<?php echo $back_url ?>">Back</a>
 <?php
 include_once('../../partials/footer.php');
 ?>

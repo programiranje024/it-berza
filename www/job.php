@@ -25,7 +25,7 @@ include_once('partials/header.php');
 <p><?php echo $job['company']['company_name']; ?></p>
 
 <?php if ($session->isRole('admin')) { ?>
-<a class="delete" href="/admin/job/delete.php?id=<?php echo $job['id']; ?>">Delete</a>
+<a class="delete" href="/company/job/delete.php?id=<?php echo $job['id']; ?>">Delete</a>
 <?php } ?>
 
 <?php if ($session->isRole('company') && $job['company_id'] == $session->getCurrentUser()['id']) { ?>
