@@ -17,17 +17,18 @@ if (Form::isSubmitted()) {
   if (!Form::isAllSet(['title', 'description', 'category_id'])) {
     echo ('Please fill in all the fields.');
   }
+  else {
+    try {
+      $jobs->createJob([
+        'title' => $_POST['title'],
+        'description' => $_POST['description']
+      ], $company['id'], $_POST['category_id']);
 
-  try {
-    $jobs->createJob([
-      'title' => $_POST['title'],
-      'description' => $_POST['description']
-    ], $company['id'], $_POST['category_id']);
-
-    echo ('Ad created successfully.');
-  }
-  catch (PDOException $e) {
-    echo ('Error while creating the ad.');
+      echo ('Ad created successfully.');
+    }
+    catch (PDOException $e) {
+      echo ('Error while creating the ad.');
+    }
   }
 }
 

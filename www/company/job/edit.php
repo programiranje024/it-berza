@@ -15,35 +15,36 @@ $category = new Category();
 $categories = $category->getAllCategories();
 
 if (!$job_id) {
-  echo ('Please provide a job id.');
+  die('Please provide a job id.');
 }
 
 $job = $jobs->getJob($_GET['id']);
 
 if (!$job) {
-  echo ('Job not found.');
+  die('Job not found.');
 }
 
 if (!$job['company_id'] == $company['id']) {
-  echo ('You are not allowed to edit this job.');
+  die('You are not allowed to edit this job.');
 }
 
 if (Form::isSubmitted()) {
   if (!Form::isAllSet(['title', 'description', 'category_id'])) {
     echo ('Please fill in all the fields.');
   }
+  else {
+    try {
+      $jobs->updateJob($job_id,
+        [
+          'title' => $_POST['title'],
+          'description' => $_POST['description']
+      ], $company['id'], $_POST['category_id']);
 
-  try {
-    $jobs->updateJob($job_id,
-      [
-        'title' => $_POST['title'],
-        'description' => $_POST['description']
-    ], $company['id'], $_POST['category_id']);
-
-    echo ('Ad updated successfully.');
-  }
-  catch (PDOException $e) {
-    echo ('Error while updating the ad.');
+      echo ('Ad updated successfully.');
+    }
+    catch (PDOException $e) {
+      echo ('Error while updating the ad.');
+    }
   }
 }
 

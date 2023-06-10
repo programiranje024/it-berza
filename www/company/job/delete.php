@@ -15,17 +15,17 @@ $category = new Category();
 $categories = $category->getAllCategories();
 
 if (!$job_id) {
-  echo ('Please provide a job id.');
+  die('Please provide a job id.');
 }
 
 $job = $jobs->getJob($_GET['id']);
 
 if (!$job) {
-  echo ('Job not found.');
+  die('Job not found.');
 }
 
 if (!$job['company_id'] == $company['id']) {
-  echo ('You are not allowed to delete this job.');
+  die('You are not allowed to delete this job.');
 }
 
 try {
