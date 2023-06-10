@@ -11,11 +11,11 @@ $user = new User();
 $user_id = $_GET['id'] ?? null;
 
 if (!$user_id) {
-  echo ('User id is required');
+  die('User id is required');
 }
 
 if ($user_id === $session->getCurrentUser()['id']) {
-  echo ('You cannot delete yourself');
+  die('You cannot delete yourself');
 }
 
 try {

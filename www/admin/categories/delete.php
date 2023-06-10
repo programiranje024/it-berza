@@ -11,7 +11,7 @@ $category = new Category();
 $category_id = $_GET['id'] ?? null;
 
 if (!$category_id) {
-  echo ('Category id is required');
+  die('Category id is required');
 }
 
 try {

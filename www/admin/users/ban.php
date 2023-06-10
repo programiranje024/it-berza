@@ -12,21 +12,21 @@ $user = new User();
 $user_id = $_GET['id'] ?? null;
 
 if (!$user_id) {
-  echo ('User id is required');
+  die('User id is required');
 }
 
 if ($user_id === $session->getCurrentUser()['id']) {
-  echo ('You cannot ban yourself');
+  die('You cannot ban yourself');
 }
 
 $unbanned_user = $user->getUserById($user_id);
 
 if (!$unbanned_user) {
-  echo ('User with this id does not exist');
+  die('User with this id does not exist');
 }
 
 if ($unbanned_user['banned']) {
-  echo ('User is already banned');
+  die('User is already banned');
 }
 
 $user = $admin->banUser($user_id);
