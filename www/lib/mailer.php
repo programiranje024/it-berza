@@ -6,8 +6,8 @@ class Mailer {
   }
 
   public function send($to, $subject, $message) {
-    $headers = "From: admin@veganshop.dev" . "\r\n" .
-      "Reply-To: admin@veganshop.dev" . "\r\n" .
+    $headers = "From: admin@itberza.dev" . "\r\n" .
+      "Reply-To: admin@itberza.dev" . "\r\n" .
       "X-Mailer: PHP/" . phpversion();
 
     return mail($to, $subject, $message, $headers);
