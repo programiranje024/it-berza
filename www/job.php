@@ -8,12 +8,12 @@ $job_id = $_GET['id'] ?? null;
 
 if (!$job_id) {
   echo ('Please provide a job id.');
-}
+} else {
+  $job = $jobs->getJob($_GET['id']);
 
-$job = $jobs->getJob($_GET['id']);
-
-if (!$job) {
-  echo ('Job not found.');
+  if (!$job) {
+    echo ('Job not found.');
+  }
 }
 
 include_once('partials/header.php');
