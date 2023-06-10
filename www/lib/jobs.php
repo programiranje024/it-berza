@@ -21,20 +21,6 @@ class Jobs {
     return $stmt->fetch();
   }
 
-  public function getJobsByCompany($company_id) {
-    $sql = 'SELECT * FROM jobs WHERE company_id = :company_id';
-    $stmt = $this->db->prepare($sql);
-    $stmt->execute([':company_id' => $company_id]);
-    return $stmt->fetchAll();
-  }
-
-  public function getJobsByCategory($category_id) {
-    $sql = 'SELECT * FROM jobs WHERE category_id = :category_id';
-    $stmt = $this->db->prepare($sql);
-    $stmt->execute([':category_id' => $category_id]);
-    return $stmt->fetchAll();
-  }
-
   public function createJob($data, $company_id, $category_id) {
     $sql = "INSERT INTO jobs (title, description, company_id, category_id) VALUES (:title, :description, :company_id, :category_id)";
 

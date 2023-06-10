@@ -11,10 +11,24 @@ $company_id = $_GET['company_id'] ?? null;
 $category_id = $_GET['category_id'] ?? null;
 
 $jobs = new Jobs();
-$ads = empty($category_id) ? $jobs->getAllJobs() : $jobs->getJobsByCategory($category_id);
+$ads = $jobs->getAllJobs();
 
 if (!empty($company_id)) {
-  $ads = array_merge($ads, $jobs->getJobsByCompany($company_id));
+  $ads = array_filter($ads, function($ad) use ($company_id) {
+    return $ad['company_id'] == $company_id;
+  });
+}
+
+if (!empty($category_id)) {
+  $ads = array_filter($ads, function($ad) use ($category_id) {
+    return $ad['category_id'] == $category_id;
+  });
+}
+
+// Fetch category and company for each ad
+foreach ($ads as &$ad) {
+  $ad['category'] = (new Category())->getCategoryById($ad['category_id']);
+  $ad['company'] = (new User())->getUserById($ad['company_id'])['company'];
 }
 
 include_once('partials/header.php');
@@ -46,9 +60,9 @@ include_once('partials/header.php');
   <?php foreach ($ads as $ad) { ?>
   <div class="ad">
     <h2><?php echo $ad['title']; ?></h2>
-    <p><?php echo $ad['description']; ?></p>
-    <p><?php echo $ad['company']['company_name']; ?></p>
     <p><?php echo $ad['category']['name']; ?></p>
+    <p><?php echo $ad['company']['company_name']; ?></p>
+    <p><?php echo $ad['description']; ?></p>
     <a href="/job.php?id=<?php echo $ad['id']; ?>">View</a>
   </div>
   <?php } ?>
