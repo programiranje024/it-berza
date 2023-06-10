@@ -2,33 +2,40 @@
 require_once('../lib/lib.php');
 
 $session = new Session();
+$all_ok = true;
 
 if (!$session->isLoggedIn()) {
   echo ('You are not logged in');
+  $all_ok = false;
 }
 
 $user = $session->getCurrentUser();
 
-if (Form::isSubmitted()) {
+if (Form::isSubmitted() && $all_ok) {
   $fields_to_check = ['name', 'phone', 'email', 'bio'];
   if (!Form::isAllSet($fields_to_check)) {
     echo ('Not all fields are set');
+    $all_ok = false;
   }
 
-  if ($user['role'] === 'company') {
+  if ($user['role'] === 'company' && $all_ok) {
     $fields_to_check = ['company_name', 'company_address', 'company_website'];
     if (!Form::isAllSet($fields_to_check)) {
       echo ('Not all fields are set for company');
+      $all_ok = false;
     }
   }
 
-  if (!Form::isEmail($_POST['email'])) {
+  if (!Form::isEmail($_POST['email']) && $all_ok) {
     echo ('Email is not valid');
+    $all_ok = false;
   }
 
-  $_user = new User();
-  $session->setCurrentUser($_user->updateUser($user['id'], $_POST));
-  $user = $session->getCurrentUser();
+  if ($all_ok) {
+    $_user = new User();
+    $session->setCurrentUser($_user->updateUser($user['id'], $_POST));
+    $user = $session->getCurrentUser();
+  }
 }
 
 include_once('../partials/header.php');

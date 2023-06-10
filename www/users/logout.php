@@ -1,16 +1,15 @@
 <?php
 require_once('../lib/lib.php');
 $session = new Session();
+$logged_in = $session->isLoggedIn();
 
-if (!$session->isLoggedIn()) {
-  echo ('You are not logged in');
+if ($logged_in) {
+  $session->logout();
 }
-
-$session->logout();
 
 include_once('../partials/header.php');
 ?>
-<h2>You are logged out</h2>
+<h2>You are <?php echo $logged_in ? '' : ' already ' ?> logged out</h2>
 <?php
 include_once('../partials/footer.php');
 ?>

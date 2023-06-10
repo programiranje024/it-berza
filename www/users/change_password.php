@@ -7,21 +7,20 @@ $current_user = $session->getCurrentUser();
 
 if (!$session->isLoggedIn()) {
   echo ('You are not logged in');
-}
-
-if (Form::isSubmitted()) {
-  $fields_to_check = ['old_password', 'password'];
-  if (!Form::isAllSet($fields_to_check)) {
-    echo ('Not all fields are set');
-  }
-
-  try { 
-    $user->changePassword($current_user['id'], $_POST['old_password'], $_POST['password']);
-    echo ('Password changed');
-  }
-  catch (Exception $e) {
-    var_dump($e->getMessage());
-    echo ('Something went wrong');
+} else {
+  if (Form::isSubmitted()) {
+    $fields_to_check = ['old_password', 'password'];
+    if (!Form::isAllSet($fields_to_check)) {
+      echo ('Not all fields are set');
+    } else {
+      try { 
+        $user->changePassword($current_user['id'], $_POST['old_password'], $_POST['password']);
+        echo ('Password changed');
+      }
+      catch (Exception $e) {
+        echo ('Something went wrong');
+      }
+    }
   }
 }
 

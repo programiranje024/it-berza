@@ -1,44 +1,51 @@
 <?php
 require_once('../lib/lib.php');
 $session = new Session();
+$all_ok = true;
 
 if ($session->isLoggedIn()) {
   echo ('You are already logged in');
+  $all_ok = false;
 }
 
-if (Form::isSubmitted()) {
+if (Form::isSubmitted() && $all_ok) {
   // Check if we have everything we need
   $fields_to_check = ['name', 'phone', 'email', 'password', 'role'];
   if (!Form::isAllSet($fields_to_check)) {
     echo ('Not all fields are set');
+    $all_ok = false;
   }
 
-  if ($_POST['role'] === 'company') {
+  if ($_POST['role'] === 'company' && $all_ok) {
     $fields_to_check = ['company_name', 'company_address', 'company_website'];
     if (!Form::isAllSet($fields_to_check)) {
       echo ('Not all fields are set for company');
+      $all_ok = false;
     }
   }
 
   // Check if email is valid
-  if (!Form::isEmail($_POST['email'])) {
+  if (!Form::isEmail($_POST['email']) && $all_ok) {
     echo ('Email is not valid');
+    $all_ok = false;
   }
 
-  // Try to register user
-  $user = new User();
+  if ($all_ok) {
+    // Try to register user
+    $user = new User();
 
-  try {
-    if ($_POST['role'] === 'company') {
-      $user->registerCompany($_POST);
+    try {
+      if ($_POST['role'] === 'company') {
+        $user->registerCompany($_POST);
+      }
+      else {
+        $user->registerUser($_POST);
+      }
+      echo ('User registered! Please check your email to activate your account');
     }
-    else {
-      $user->registerUser($_POST);
+    catch (Exception $e) {
+      echo ('Something went wrong');
     }
-    echo ('User registered! Please check your email to activate your account');
-  }
-  catch (Exception $e) {
-    echo ('Something went wrong');
   }
 }
 

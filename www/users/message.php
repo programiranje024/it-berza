@@ -10,12 +10,12 @@ $current_user = $session->getCurrentUser();
 if (Form::isSubmitted()) {
   if (!Form::isAllSet(['receiver_id', 'message'])) {
     echo ('Invalid request');
+  } else {
+    $receiver_id = $_POST['receiver_id'];
+    $msg = $_POST['message'];
+
+    $message->sendMessage($msg, $current_user['id'], $receiver_id);
   }
-
-  $receiver_id = $_POST['receiver_id'];
-  $msg = $_POST['message'];
-
-  $message->sendMessage($msg, $current_user['id'], $receiver_id);
 }
 
 $receivers = $message->getReceivers($current_user['id']);
