@@ -25,10 +25,9 @@ if (!empty($category_id)) {
   });
 }
 
-// Fetch category and company for each ad
-foreach ($ads as &$ad) {
-  $ad['category'] = (new Category())->getCategoryById($ad['category_id']);
-  $ad['company'] = (new User())->getUserById($ad['company_id'])['company'];
+for($i = 0; $i < count($ads); $i++) {
+  $ads[$i]['category'] = (new Category())->getCategoryById($ads[$i]['category_id']);
+  $ads[$i]['company'] = (new User())->getUserById($ads[$i]['company_id'])['company'];
 }
 
 include_once('partials/header.php');
