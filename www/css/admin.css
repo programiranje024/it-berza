@@ -1,5 +1,5 @@
 table, th, td, tr {
-  border: 1px solid black;
+  border: 1px solid white;
 }
 
 table{
@@ -8,7 +8,7 @@ table{
 
 a {
   text-decoration: none;
-  color: black;
+  color: white;
   padding: 5px;
 }
 
@@ -17,12 +17,12 @@ a:hover {
 }
 
 a.add {
-  border: 1px solid black;
+  border: 1px solid white;
   background-color: green;
-  color: white;
+  color: black;
 }
 
 table a:not(.delete):not(.add) {
-  background-color: #0c0c0c;
-  color: white;
+  background-color: white;
+  color: #0c0c0c;
 }

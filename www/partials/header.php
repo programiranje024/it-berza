@@ -9,10 +9,14 @@ $session = new Session();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IT Berza</title>
     <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+    </style>
+    <style>
       html, body {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
+        font-family: 'Roboto', sans-serif;
       }
     </style>
     <link rel="stylesheet" href="/css/header.css">

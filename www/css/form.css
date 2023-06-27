@@ -5,12 +5,12 @@ form {
   margin: 0;
   padding: 20px;
   width: calc(100% - 40px);
-  border: 1px solid black;
+  border: 1px solid white;
 }
 
 input[type="submit"] {
-  background-color: green;
-  color: white;
+  background-color: azure;
+  color: black;
   border: none;
   padding: 10px;
   cursor: pointer;
