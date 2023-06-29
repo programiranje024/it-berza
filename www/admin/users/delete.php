@@ -4,30 +4,34 @@ require_once('../../lib/lib.php');
 $session = new Session();
 
 if (!$session->isRole('admin')) {
-  die('You are not authorized to access this page.');
+  die(json_encode([
+    'message' => 'You are not authorized to access this page.'
+  ]));
 }
 
 $user = new User();
 $user_id = $_GET['id'] ?? null;
 
 if (!$user_id) {
-  die('User id is required');
+  die(json_encode([
+    'message' => 'User id is required'
+  ]));
 }
 
 if ($user_id === $session->getCurrentUser()['id']) {
-  die('You cannot delete yourself');
+  die(json_encode([
+    'message' => 'You cannot delete yourself'
+  ]));
 }
+
 
 try {
   $user->deleteUser($user_id);
+  die(json_encode([
+    'message' => 'User deleted successfully'
+  ]));
 } catch (Exception $e) {
-  echo ('User could not be deleted');
+  die(json_encode([
+    'message' => 'Failed to delete user'
+  ]));
 }
-
-include_once('../../partials/header.php');
-?>
-<a class="back" href="/admin/index.php">Back</a>
-<h2>User has been deleted</h2>
-<?php
-include_once('../../partials/footer.php');
-?>

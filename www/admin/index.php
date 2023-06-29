@@ -56,15 +56,15 @@ include_once('../partials/header.php');
       <td><?php echo $user['role']; ?></td>
       <td><?php echo $user['status']; ?></td>
       <td>
-        <a class='delete' href="/admin/users/delete.php?id=<?php echo $user['id']; ?>">Delete</a>
+        <a class='delete' onclick="deleteUser(<?php echo $user['id']; ?>)">Delete</a>
         <?php if ($user['status'] === 'Unverified') { ?>
-          <a href="/admin/users/verify.php?id=<?php echo $user['id']; ?>">Verify</a>
+          <a onclick="verifyUser(<?php echo $user['id']; ?>)">Verify</a>
         <?php } ?>
         <?php if ($user['status'] === 'Verified') { ?>
-          <a href="/admin/users/ban.php?id=<?php echo $user['id']; ?>">Ban</a>
+          <a onclick="banUser(<?php echo $user['id']; ?>)">Ban</a>
         <?php } ?>
         <?php if ($user['status'] === 'Banned') { ?>
-          <a href="/admin/users/unban.php?id=<?php echo $user['id']; ?>">Unban</a>
+          <a onclick="unbanUser(<?php echo $user['id']; ?>)">Unban</a>
         <?php } ?>
       </td>
     </tr>
@@ -96,6 +96,7 @@ include_once('../partials/header.php');
 </table>
 <a class='add' href="/admin/categories/add.php">Create Category</a>
 <link rel="stylesheet" href="/css/admin.css">
+<script src="/admin/js/user.js"></script>
 <?php
 include_once('../partials/footer.php');
 ?>
