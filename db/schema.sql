@@ -7,10 +7,10 @@ CREATE TABLE IF NOT EXISTS users (
   id INT PRIMARY KEY AUTO_INCREMENT,
   name TEXT NOT NULL,
   phone TEXT NOT NULL,
-  email TEXT NOT NULL UNIQUE,
+  email VARCHAR(255) NOT NULL UNIQUE,
   bio TEXT NOT NULL,
   password TEXT NOT NULL,
-  role TEXT NOT NULL DEFAULT "user" CHECK(role IN("user", "company", "admin")),
+  role VARCHAR(255) NOT NULL CHECK(role IN("user", "company", "admin")) DEFAULT "user",
   banned BOOLEAN NOT NULL DEFAULT FALSE,
   verified BOOLEAN NOT NULL DEFAULT FALSE,
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP
