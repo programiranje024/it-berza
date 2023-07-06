@@ -16,7 +16,6 @@ if ($session->isLoggedIn()) {
         if ($_POST['submit'] === 'Forgot password') {
           $user = new User();
           $user->forgotPassword($_POST['email']);
-          echo ('Email sent');
         } else {
           $session->login($_POST['email'], $_POST['password']);
           header('Location: /users/profile.php');

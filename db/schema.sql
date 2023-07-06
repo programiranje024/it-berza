@@ -61,6 +61,13 @@ CREATE TABLE IF NOT EXISTS verification_tokens (
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS password_reset (
+  user_id INTEGER NOT NULL,
+  token TEXT NOT NULL,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
 INSERT INTO categories (name) VALUES
   ("Web Development"),
   ("Mobile Development"),

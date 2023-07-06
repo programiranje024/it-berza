@@ -91,6 +91,21 @@ class User {
     ]);
   }
 
+  public function updatePassword($id, $pw) {
+    $user = $this->getUserById($id);
+
+    if (!$user) {
+      throw new Exception("User with this id does not exist");
+    }
+
+    $stmt = $this->db->prepare("UPDATE users SET password = ? WHERE id = ?");
+
+    $stmt->execute([
+      password_hash($pw, PASSWORD_DEFAULT),
+      $user['id']
+    ]);
+  }
+
   public function updateUser($user_id, $data) {
     $stmt = $this->db->prepare("UPDATE users SET name = ?, phone = ?, bio = ? WHERE id = ?");
 
@@ -210,5 +225,51 @@ class User {
     $stmt->execute([$user_id, $token]);
 
     return $this->getVerificationToken($user_id);
+  }
+
+  public function requestPasswordChange($email) {
+    $user = $this->getUserByEmail($email);
+    if ($user) {
+      $token = $this->createResetToken($user['id']);
+
+      $this->mailer->send($email, 'Reset your password', "Click this link to reset your password: http://localhost/user/reset_password.php?token=$token");
+
+      return true;
+    }
+
+    return false;
+  }
+
+  public function resetPassword($password, $token) {
+    $stmt = $this->db->prepare('SELECT user_id FROM password_reset WHERE token = ?');
+    $stmt->execute([$token]);
+    $result = $stmt->fetch();
+    if ($result) {
+      $user_id = $result['user_id'];
+      $this->updatePassword($user_id, $password);
+      $this->deleteResetToken($token);
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  private function createResetToken($id) {
+    $token = bin2hex(random_bytes(32));
+
+    $query = "INSERT INTO password_reset (user_id, token) VALUES (:user_id, :token)";
+    $statement = $this->db->prepare($query);
+    $statement->bindValue(':user_id', $id);
+    $statement->bindValue(':token', $token);
+    $statement->execute();
+
+    return $token;
+  }
+
+  private function deleteResetToken($token) {
+    $query = "DELETE FROM password_reset WHERE token = :token";
+    $statement = $this->db->prepare($query);
+    $statement->bindValue(':token', $token);
+    $statement->execute();
   }
 }
