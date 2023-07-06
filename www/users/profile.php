@@ -5,7 +5,7 @@ $session = new Session();
 $all_ok = true;
 
 if (!$session->isLoggedIn()) {
-  echo ('You are not logged in');
+  die('You are not logged in');
   $all_ok = false;
 }
 

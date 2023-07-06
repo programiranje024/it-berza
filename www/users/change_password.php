@@ -6,7 +6,7 @@ $user = new User();
 $current_user = $session->getCurrentUser();
 
 if (!$session->isLoggedIn()) {
-  echo ('You are not logged in');
+  die('You are not logged in');
 } else {
   if (Form::isSubmitted()) {
     $fields_to_check = ['old_password', 'password'];

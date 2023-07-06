@@ -55,24 +55,6 @@ class User {
     return $this->getUserById($user_id);
   }
 
-  public function forgotPassword($email) {
-    $user = $this->getUserByEmail($email);
-
-    if (!$user) {
-      throw new Exception("User with this email does not exist");
-    }
-
-    $generated_password = bin2hex(random_bytes(8));
-
-    $stmt = $this->db->prepare("UPDATE users SET password = ? WHERE id = ?");
-    $stmt->execute([
-      password_hash($generated_password, PASSWORD_DEFAULT),
-      $user['id']
-    ]);
-
-    $this->mailer->send($email, 'Your new password', 'Your new password is: ' . $generated_password);
-  }
-
   public function changePassword($id, $old, $new) {
     $user = $this->getUserById($id);
 
@@ -255,7 +237,7 @@ class User {
   }
 
   private function createResetToken($id) {
-    $token = bin2hex(random_bytes(32));
+    $token = bin2hex(random_bytes(8));
 
     $query = "INSERT INTO password_reset (user_id, token) VALUES (:user_id, :token)";
     $statement = $this->db->prepare($query);

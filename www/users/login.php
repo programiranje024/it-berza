@@ -15,7 +15,11 @@ if ($session->isLoggedIn()) {
       try {
         if ($_POST['submit'] === 'Forgot password') {
           $user = new User();
-          $user->forgotPassword($_POST['email']);
+          if ($user->requestPasswordChange($_POST['email'])) {
+            echo ('Password reset requested');
+          } else {
+            echo ('Something went wrong');
+          }
         } else {
           $session->login($_POST['email'], $_POST['password']);
           header('Location: /users/profile.php');

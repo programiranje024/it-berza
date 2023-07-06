@@ -6,7 +6,7 @@ $session = new Session();
 
 // form handler
 if ($session->isLoggedIn()) {
-    echo ('You are already logged in');
+    die('You are already logged in');
 } else {
     if (Form::isSubmitted()) {
         // Check if we have everything we need
@@ -16,7 +16,7 @@ if ($session->isLoggedIn()) {
         } else {
             try {
                 $user = new User();
-                $user->resetPassword($_POST['email']);
+                $user->resetPassword($_POST['password'], $_POST['token']);
                 echo ('Password reset successfully');
             } catch (Exception $e) {
                 echo ('Something went wrong');
@@ -26,10 +26,10 @@ if ($session->isLoggedIn()) {
 }
 
 // include header
-include_once('../views/header.php');
+include_once('../partials/header.php');
 ?>
 <div class="container">
-  <form action="/user/reset-password.php" method="post">
+  <form action="/users/reset_password.php" method="post">
     <input type="password" name="password" placeholder="Password" required>
     <?php
     if (isset($_GET['token'])) {
@@ -49,5 +49,5 @@ include_once('../views/header.php');
 
 <?php
 // include footer
-include_once('../views/footer.php');
+include_once('../partials/footer.php');
 ?>
